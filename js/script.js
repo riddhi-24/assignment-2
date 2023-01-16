@@ -27,8 +27,9 @@ function eventAdd(text){
         id:Date.now()
     };
    todoItems.push(todo);
-   showtodo(todoItems);
+
    localStorage.setItem('todolocal',JSON.stringify(todoItems));
+   showtodo(todoItems);
    console.log(todoItems);
    
 }
@@ -71,7 +72,6 @@ function deletetodo(id_todo){
    let tempArr=JSON.parse(ref);
 
    tempArr=tempArr.filter(item=>item.id !== Number(id_todo));
-   console.log(item);
    localStorage.setItem("todolocal",JSON.stringify(tempArr));
 }
 
