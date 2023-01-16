@@ -1,0 +1,52 @@
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+
+.class_header input[type=text]{
+    width:600px;
+    height:30px;
+    text-align:left;
+    font-size: 15px;
+    padding-left: 2.375rem;
+    border-radius: 4px;
+    color: #aaa;
+    border-color: grey;
+}
+
+.class_header input[type=text]:focus{
+    outline: none;
+}
+
+
+.class_header .tag-symbol {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+
+button{
+    margin-left: 20px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 84px;
+    padding-right: 84px;
+    background-color: blue;
+    border: none;
+    text-decoration: none;
+    text-shadow: none;
+    color: white;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
