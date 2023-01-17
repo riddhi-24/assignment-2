@@ -23,6 +23,7 @@ header{
 }
 
 
+
 .class_header .tag-symbol {
     position: absolute;
     z-index: 2;
@@ -52,5 +53,9 @@ button{
 }
 
 button:hover{
+    cursor: pointer;
+}
+
+i:hover{
     cursor: pointer;
 }

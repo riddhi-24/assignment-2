@@ -27,9 +27,7 @@ function eventAdd(text1){
         id:Date.now()
     };
 
-    if(todo.name.value==''){
-        todo.name.value.remove();
-    }
+    
 
    todoItems.push(todo);
    localStorage.setItem('todolocal',JSON.stringify(todoItems));
@@ -48,28 +46,30 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 function showtodo(todoList){
 
-    const list=document.querySelector('.ul-list');
+    const list=document.querySelector('.ul_list');
+    list.innerHTML='';
     
     todoList.forEach(function(todo){
 
         const item_todo=document.querySelector(`[data-key='${todo.id}']`)
-        const isCheckedtodo=todo.checked?'done':'';
-        const li=document.createElement('li');
-        li.setAttribute('class',`todo-class ${isCheckedtodo}`);
-        li.setAttribute('data-key',todo.id);
+        const li_todo=document.createElement('li');
+        li_todo.setAttribute('class',"todo-class");
+        li_todo.setAttribute('data-key',todo.id);
 
 
-        li.innerHTML=`<div class="left"><input type="checkbox" id="${todo.id}" class="check" onclick="checkedbox(${todo.id})">
+        li_todo.innerHTML=
+        `<div class="left">
+        <input type="checkbox" id="${todo.id}" class="check" onclick="checkedbox(${todo.id})">
         <span id="${todo.id}" class="unchecked">-</span>
         <span id="${todo.id}" class="checked">&#10003</span>
-        <label id="${todo.id}" class="task">${todo.name}</label></div>
+        <label id="${todo.id}" class="task">${todo.name}</label>
+        </div>
         <i class="fa fa-trash delete" style="color:red;" onclick="deletetodo(${todo.id})"></i>`;
 
-
         if(item_todo){
-            list.replaceChild(li,item_todo);
+            list.replaceChild(li_todo,item_todo);
         }else{
-        list.append(li);
+        list.append(li_todo);
         }
     });
 }
@@ -77,29 +77,27 @@ function showtodo(todoList){
 const todo_ip=document.getElementById('myInput');
 
 todo_ip.addEventListener('input',function(){
-    let search_ip=todo_ip.value.toLowerCase();
-
-    let liele=document.getElementsByTagName('li');
-
-
-    Array.from(liele).forEach(function(search){
-        let search_text=search.getElementsByTagName('label')[0].innerHTML;
-
-        if(search_text.toLowerCase().includes(search_ip)){
-            search.style.display="flex";
-        }else{
-            search.style.display="none";
+    const search_ip=todo_ip.value.toLowerCase();
+    const ref1=JSON.parse(localStorage.getItem('todolocal'));
+    let arr1=[];
+    ref1.forEach(function(ref1_item){
+        if(ref1_item.name.toLowerCase().includes(search_ip)){
+            arr1.push(ref1_item);
         }
     })
+    showtodo(arr1);
 })
 
 function deletetodo(id_todo){
-//    const ref=localStorage.getItem('todolocal');
-//    console.log(ref);
-//    let tempArr=JSON.parse(ref);
+   let tempArr2=JSON.parse(localStorage.getItem('todolocal'));
 
-   todoItems=todoItems.filter(item=>item.id !== Number(id_todo));
-   localStorage.setItem("todolocal",JSON.stringify(todoItems));
+   tempArr2=tempArr2.filter(item=>item.id !== parseInt(id_todo));
+   localStorage.setItem("todolocal",JSON.stringify(tempArr2));
+   showtodo(tempArr2);
+}
+
+function checkedbox(id_todo){
+        
 }
 
 
