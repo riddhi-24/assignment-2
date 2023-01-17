@@ -19,6 +19,7 @@ header{
 
 .class_header input[type=text]:focus{
     outline: none;
+    color: black;
 }
 
 
