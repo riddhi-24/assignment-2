@@ -59,3 +59,19 @@ button:hover{
 i:hover{
     cursor: pointer;
 }
+
+input[type=checkbox]:hover{
+    cursor: pointer;
+}
+
+.unchecked{
+    color: red;
+}
+
+.checked{
+    color:green;
+}
+
+.done label{
+    text-decoration: line-through;
+}

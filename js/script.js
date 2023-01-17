@@ -53,16 +53,17 @@ function showtodo(todoList){
 
         const item_todo=document.querySelector(`[data-key='${todo.id}']`)
         const li_todo=document.createElement('li');
-        li_todo.setAttribute('class',"todo-class");
+        const isChecked=todo.checked?'done':'';
+        li_todo.setAttribute('class',`todo_list ${isChecked}`);
         li_todo.setAttribute('data-key',todo.id);
 
 
         li_todo.innerHTML=
         `<div class="left">
-        <input type="checkbox" id="${todo.id}" class="check" onclick="checkedbox(${todo.id})">
-        <span id="${todo.id}" class="unchecked">-</span>
-        <span id="${todo.id}" class="checked">&#10003</span>
-        <label id="${todo.id}" class="task">${todo.name}</label>
+        <input type="checkbox" class="check" onclick="checkedbox(${todo.id})" ${todo.checked?'checked':''}>
+        <span style="${todo.checked?"display:none":"display:flex"}class="unchecked">-</span>
+        <span style="${todo.checked?"display:flex":"display:none"}" class="checked">&#10003</span>
+        <label class="task">${todo.name}</label>
         </div>
         <i class="fa fa-trash delete" style="color:red;" onclick="deletetodo(${todo.id})"></i>`;
 
@@ -97,7 +98,19 @@ function deletetodo(id_todo){
 }
 
 function checkedbox(id_todo){
-        
+       let tempArr3=JSON.parse(localStorage.getItem('todolocal'));
+       tempArr3.forEach(function(itemoftodo){
+          if(itemoftodo.id===parseInt(id_todo)){
+            //  if(item.checked){
+            //     item.checked=!item.checked;
+            //  }else{
+            //     item.checked=!item.checked;
+            //  }
+            itemoftodo.checked=!itemoftodo.checked;
+          }
+       })
+       localStorage.setItem("todolocal",JSON.stringify(tempArr3));
+       showtodo(tempArr3);
 }
 
 
