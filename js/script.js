@@ -2,6 +2,14 @@ let todoItems=[];
 
 const form=document.querySelector('form');
 
+document.addEventListener('DOMContentLoaded',()=>{
+    const ref=localStorage.getItem('todolocal');
+    if(ref){
+      todoItems=JSON.parse(ref);
+      showtodo(todoItems);
+    }
+ })
+
 form.addEventListener('submit',event=>{
     event.preventDefault();
     const input=document.querySelector('#myInput');
@@ -14,7 +22,7 @@ form.addEventListener('submit',event=>{
     document.addEventListener('keyup',keypress);
     function keypress(k){
         k.preventDefault();
-        if(k==='Enter' || k===13){
+        if(k==='Enter'){
             eventAdd(text);
         }
     }
@@ -27,8 +35,6 @@ function eventAdd(text1){
         id:Date.now()
     };
 
-    
-
    todoItems.push(todo);
    localStorage.setItem('todolocal',JSON.stringify(todoItems));
    showtodo(todoItems);
@@ -36,43 +42,38 @@ function eventAdd(text1){
    
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-    const ref=localStorage.getItem('todolocal');
-    if(ref){
-      todoItems=JSON.parse(ref);
-      showtodo(todoItems);
-    }
- })
+
 
 function showtodo(todoList){
 
     const list=document.querySelector('.ul_list');
     list.innerHTML='';
+    console.log('hiii');
+    let no_result=document.getElementsByTagName('h1');
+    console.log(no_result);
     
     todoList.forEach(function(todo){
-
-        const item_todo=document.querySelector(`[data-key='${todo.id}']`)
+        console.log('hiii inside loop');
         const li_todo=document.createElement('li');
-        const isChecked=todo.checked?'done':'';
-        li_todo.setAttribute('class',`todo_list ${isChecked}`);
-        li_todo.setAttribute('data-key',todo.id);
+        li_todo.setAttribute('class',`todo_list ${todo.checked?'yes_checked':''}`);
 
 
         li_todo.innerHTML=
-        `<div class="left">
-        <input type="checkbox" class="check" onclick="checkedbox(${todo.id})" ${todo.checked?'checked':''}>
+        `<input type="checkbox" class="check" onclick="checkedbox(${todo.id})" ${todo.checked?'checked':''}>
         <span style="${todo.checked?"display:none":"display:flex"}class="unchecked">-</span>
         <span style="${todo.checked?"display:flex":"display:none"}" class="checked">&#10003</span>
         <label class="task">${todo.name}</label>
-        </div>
         <i class="fa fa-trash delete" style="color:red;" onclick="deletetodo(${todo.id})"></i>`;
-
-        if(item_todo){
-            list.replaceChild(li_todo,item_todo);
-        }else{
+   
         list.append(li_todo);
-        }
     });
+
+
+    if(todoList.length==0){
+       no_result[0].style.display='flex';
+    }else{
+       no_result[0].style.display='none';
+    }
 }
 
 const todo_ip=document.getElementById('myInput');
@@ -85,7 +86,8 @@ todo_ip.addEventListener('input',function(){
         if(ref1_item.name.toLowerCase().includes(search_ip)){
             arr1.push(ref1_item);
         }
-    })
+    });
+    console.log(arr1.length);
     showtodo(arr1);
 })
 

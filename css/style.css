@@ -72,6 +72,6 @@ input[type=checkbox]:hover{
     color:green;
 }
 
-.done label{
+.yes_checked label{
     text-decoration: line-through;
 }
