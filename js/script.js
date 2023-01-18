@@ -57,7 +57,6 @@ function showtodo(todoList){
         const li_todo=document.createElement('li');
         li_todo.setAttribute('class',`todo_list ${todo.checked?'yes_checked':''}`);
 
-
         li_todo.innerHTML=
         `<input type="checkbox" class="check" onclick="checkedbox(${todo.id})" ${todo.checked?'checked':''}>
         <span style="${todo.checked?"display:none":"display:flex"}class="unchecked">-</span>
